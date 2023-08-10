@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arduino GUI</title>
+</head>
+<body>
+  <button id="togglePin">Toggle Pin</button>
+  
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["command"]) && $_GET["command"] == "toggle") {
+    // Send command to Arduino over serial
+    exec("echo 'toggle' > COM3"); // Change COM3 to your Arduino's serial port
+  }
+  ?>
+  
+  <script>
+    document.getElementById("togglePin").addEventListener("click", function() {
+      // Send command to PHP script
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "?command=toggle", true);
+      xhr.send();
+    });
+  </script>
+</body>
+</html>
